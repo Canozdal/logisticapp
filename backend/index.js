@@ -30,6 +30,7 @@ app.post('/register', (req,res) =>{
     })
 })
 
+
 app.post('/login',(req,res) =>{
     const email = req.body.email
     const password = req.body.password
@@ -49,7 +50,35 @@ app.post('/login',(req,res) =>{
     });
 
 })
+app.post('/addshippingaddress',(req,res) =>{
+    const email = req.body.email;
+    const address = req.body.address;
+
+    db.query("INSERT INTO shipping_addresses(email,address) VALUES (?,?) ",[email,address],
+    (err,result) =>{
+        if(err){
+            console.log(err);
+        }
+    })
+})
+
+app.post('/addcreditcard',(req,res) =>{
+
+    const name = req.body.name;
+    const cvv = req.body.cvv;
+    const exp_date = req.body.exp_date;
+    const card_no = req.body.card_no;
+
+    console.log(name);
+    db.query("INSERT INTO credit_card(name,cvv,card_no,exp_date) VALUES(?,?,?,?) ", [name,cvv,card_no,exp_date],
+    (err,result) =>{
+        if(err){
+            console.log(err);
+        }
+    })
+})
+
+
 app.listen(3005,() =>{
     console.log("Running on port 3005");
 })
-
