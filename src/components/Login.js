@@ -22,6 +22,7 @@ export const Login = () => {
         });
     }
     const navigate = useNavigate();
+    const navigate2 = useNavigate();
     return(
         <body align="center">
             <div>
@@ -45,6 +46,15 @@ export const Login = () => {
 
                     }}>Login</button></p>
                 <p>Dont have an account?<Link to="register">register</Link> </p>
+                <p><button onClick={ () =>{navigate2("employeelandingpage")}
+                    
+                    }>Test Employee Main Page</button></p>
+                <p><button onClick={ () =>{navigate("courierlandingpage")}
+                    
+                }>Test Courier Main Page</button></p>
+                <p><button onClick={ () =>{navigate("admin")}
+                    
+                }>Test Admin Main Page</button></p>
             </div>
         </body>
 
