@@ -1,15 +1,21 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {useLocation} from 'react-router-dom';
+export const LandingPage = (props) =>{
+    const location = useLocation();
+    console.log(location);
+    var email = location.state["email"]
+    var name = location.state["name"]
+    console.log(email)
 
-export const LandingPage = () =>{
     const navigate = useNavigate();
     return(
         <div align="center">
-            <header>To be implemented</header>
+            <header>{email}</header>
             <br></br>
             <body>
                 <div>
-                    <button onClick={() => navigate("shippingaddresses")}>Shipping Addresses</button>
+                    <button onClick={() => navigate("shippingaddresses", {state: {email: email,name: name}})}>Shipping Addresses</button>
                     <br></br>
                     <button onClick={() => navigate("shippingmethods")}>Shipping Methods</button>
                     <br></br>

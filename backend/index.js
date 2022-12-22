@@ -78,7 +78,21 @@ app.post('/addcreditcard',(req,res) =>{
     })
 })
 
+app.post("/shippingaddresses", (req,res) => {
+    const email = req.body.email;
 
+    console.log(email);
+    db.query("SELECT * FROM shipping_addresses WHERE email = ?",[email],(err,result) =>{
+        if(err){
+            console.log(err);
+        }
+        if(result){
+            res.send(result);
+        }
+    })
+
+})
 app.listen(3005,() =>{
     console.log("Running on port 3005");
 })
+

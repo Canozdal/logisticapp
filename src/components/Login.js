@@ -7,11 +7,15 @@ import Axios from "axios";
 export const Login = () => {
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
-
+    var userPrompt = "Test"
+    var userMail = "Test"
     const loginFunc = () =>{
         Axios.post('http://localhost:3005/login',{email: email,password: password}).then((response) =>{
-            if(response.data.email){
-                console.log(response.data[0].id);
+            if(response.data[0]["email"]){
+                userPrompt = response.data[0]["name"]
+                userMail = response.data[0]["email"]
+                console.log("Welcome " + response.data[0]["name"])
+
             }else{
                 console.log(response);
             }
@@ -33,7 +37,11 @@ export const Login = () => {
                 <input id="login_passcode_id" type="text" onChange={(e) => { setPassword(e.target.value)}}></input>
                 <p><button id="login_button" onClick={() => {
                     loginFunc();
-                    navigate("landingpage");
+                    console.log("Message to be transferred is : " + userPrompt);
+                    if(userPrompt == "Test"){
+                        return null;
+                    }
+                    navigate("landingpage",{state: {name: userPrompt,email: userMail}});
 
                     }}>Login</button></p>
                 <p>Dont have an account?<Link to="register">register</Link> </p>
