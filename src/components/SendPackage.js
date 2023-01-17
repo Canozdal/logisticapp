@@ -11,7 +11,9 @@ export const SendPackage = () => {
     const [pname,setPName] = useState();
     const [pdesc,setPDesc] = useState();
     const [shippingCost,setShippingCost] = useState();
-
+    const [saddress,setAddress] = useState();
+    const [cardno,setCardNo] = useState();
+    const [shippingMethod,setShippingMethod] = useState();
 
     const location = useLocation();
     var email = location.state["email"];
@@ -39,6 +41,7 @@ export const SendPackage = () => {
                 console.log("Address values are successfully retrieved.");
                 address = response.data[0]["address"];
                 console.log(address);
+                setAddress(address);
             }else{
                 console.log(response);
             }
@@ -50,6 +53,7 @@ export const SendPackage = () => {
                 console.log("Card Info Retrieved Successfully");
                 cardNo = response.data[0]["card_no"];
                 console.log(cardNo);
+                setCardNo(cardNo);
             }
         })
     }
@@ -59,6 +63,7 @@ export const SendPackage = () => {
                 console.log("Data Retrieved Successfully")
                 shipping_method = response.data[0]["delivery_type"];
                 console.log(shipping_method);
+                setShippingMethod(shipping_method);
             }
         })
     }
@@ -66,15 +71,15 @@ export const SendPackage = () => {
     return(
         <div align="center">
             <p>Send Package</p>
-            <p> Address {address}<button onClick={() =>{
+            <p> Address {saddress}<button onClick={() =>{
                 sendAddressFunc();
             }}>Select</button></p>
-            <p> Delivery Method <input></input> <button onClick={
+            <p> Delivery Method: {shippingMethod} <button onClick={
                 () =>{
                     sendShippingMethod();
                 }
             }>Select</button></p>
-            <p> Payment <input></input> <button onClick={
+            <p> Payment: {cardno}  <button onClick={
                 () =>{
                     sendCardFunc();
                 }

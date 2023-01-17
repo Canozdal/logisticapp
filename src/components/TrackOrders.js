@@ -18,7 +18,7 @@ export const TrackOrders=()=>{
                 var orderString = "";
 
                 for(let i = 0; i < response.data["length"];i++){
-                    orderString += response.data[i.toString()]["name"] + " " + response.data[i.toString()]["description"] + "\n";
+                    orderString += response.data[i.toString()]["idpackage"] + " " + response.data[i.toString()]["name"] + " " + response.data[i.toString()]["description"] + "\n";
                 }
 
                 setTextAreaVal(orderString);
