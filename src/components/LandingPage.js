@@ -17,7 +17,7 @@ export const LandingPage = (props) =>{
                 <div>
                     <button onClick={() => navigate("shippingaddresses", {state: {email: email,name: name}})}>Shipping Addresses</button>
                     <br></br>
-                    <button onClick={() => navigate("shippingmethods")}>Shipping Methods</button>
+                    <button onClick={() => navigate("shippingmethods", {state: {email: email,name: name}})}>Shipping Methods</button>
                     <br></br>
                     <button onClick={() => navigate("creditcards")}>Credit Cards</button>
                     <br></br>
