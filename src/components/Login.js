@@ -2,7 +2,7 @@ import React,{Fragment, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-
+import MuiAlert from '@material-ui/lab/Alert';
 
 export const Login = () => {
     const [email,setEmail] = useState();
@@ -17,6 +17,7 @@ export const Login = () => {
                 console.log("Welcome " + response.data[0]["name"])
 
             }else{
+
                 console.log(response);
             }
         });
@@ -27,8 +28,6 @@ export const Login = () => {
         <body align="center">
             <div>
             <p> Login </p>
-            <p> Access account</p>
-            <p> <button>facebook</button><button>google</button></p>
             </div>
             <div>
                 <p>or login with e-mail</p>

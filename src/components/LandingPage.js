@@ -23,7 +23,7 @@ export const LandingPage = (props) =>{
                     <br></br>
                     <button onClick={() => navigate("trackorders")}>Track Orders</button>
                     <br></br>
-                    <button onClick={() => navigate("sendpackage")}>Send Package</button>
+                    <button onClick={() => navigate("sendpackage", {state: {email: email,name: name}})}>Send Package</button>
                     <br></br>
                     <button onClick={()=> navigate("createcomplaint")}>Create Complaint</button>
                     <br></br>
