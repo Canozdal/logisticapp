@@ -10,6 +10,8 @@ export const SendPackage = () => {
     const [weight,setWeight] = useState();
     const [pname,setPName] = useState();
     const [pdesc,setPDesc] = useState();
+    const [shippingCost,setShippingCost] = useState();
+
 
     const location = useLocation();
     var email = location.state["email"];
@@ -83,13 +85,15 @@ export const SendPackage = () => {
             <p> Heigth : <input id="sendpackage_height" onChange={(e) =>{setHeight(e.target.value);}}></input> Width: <input onChange={(e) =>{setWidth(e.target.value)}}></input> Depth: <input onChange={(e) => {setDepth(e.target.value);}}></input>
             <button onClick={() =>{
                 estimatedShippingCost = (width * height *depth * 0.02) + weight * 0.45;
-                console.log(estimatedShippingCost);
+
+                setShippingCost(estimatedShippingCost);
+                console.log(shippingCost);
             }}>Select</button></p>
             <br></br>
             <p> Package Name : <input id="sendpackage_name" onChange={(e) =>{setPName(e.target.value);}}></input></p>
             <p> Package Desc : <input id="sendpackage_name_desc" onChange={(e) =>{setPDesc(e.target.value);}}></input></p>
             <p> In order to send package you will be accepting to <br></br> make a payment with the selected card.</p>
-            <p> Price for shipping : {estimatedShippingCost}</p>
+            <p > Estimated Shipping Cost {shippingCost}</p>
             <p> Delivery Fee</p>
             <p> Total</p>
             <p> <button onClick={() =>{
