@@ -20,7 +20,18 @@ export const TaskDetails = () =>{
             }
         )
     }
-
+    const changeDeliveryStatus = () =>{
+        Axios.post("http://localhost:3005/changeConfirmationDelivery", {email:email, status: status, packageId: packageId}).then(
+            (response)=>{
+                if(response.data){
+                    console.log("Updated Status Successfully");
+                }
+                else{
+                    console.log(response);
+                }
+            }
+        )
+    }
     return(
         <div>Task Details
             <p>Package ID: <input onChange={(e) =>{
@@ -31,7 +42,10 @@ export const TaskDetails = () =>{
             }}>Search</button></p>
             <p>Date of Arrival {arrivalDate}</p>
             <p>Status: {status}</p>
-            <button>Package Sent</button>
+            <button onClick={() =>{
+                setStatus("Confirmed");
+                changeDeliveryStatus();
+            }}>Package Sent</button>
             <button onClick={()=>{navigate(-1);}}>Back</button>
         </div>
     );

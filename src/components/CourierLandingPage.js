@@ -9,6 +9,7 @@ export const CourierLandingPage = () =>{
     const [packageId,setPackageId] = useState();
     const [arrivalDate,setArrivalDate] = useState();
     const [departureDate,setDepartureDate] = useState(); 
+
     var email = location.state["email"];
     var packagesString = "";
 
@@ -24,11 +25,16 @@ export const CourierLandingPage = () =>{
             }
         )
     }
-    const createDelivery = () =>{
-        Axios.post("http://localhost:3005/createdelivery",{email: email,packageId: packageId,arrivalDate: arrivalDate,departureDate: departureDate}).then(
+    const getDelivery = () =>{
+        Axios.post("http://localhost:3005/getCourierDeliveries",{email: email}).then(
             (response)=>{
                 if(response.data){
-                    console.log("Successfully created a delivery.")
+                    console.log("Successfully gathered deliveries.")
+                    for(let i = 0; i < response.data["length"];i++){
+                        packagesString += response.data[i.toString()]["packageid"] + " " + response.data[i.toString()]["name"] + " " + response.data[i.toString()]["description"] + " " + response.data[i.toString()]["status"]+ "\n";
+                    }   
+    
+                    setTextAreaVal(packagesString);
                 }else{
                     console.log(response);
                 }
@@ -36,12 +42,13 @@ export const CourierLandingPage = () =>{
             }
         )
     }
+
     return(
 
         <div align="center">
             <p>Packages</p>
             <button onClick={() =>{
-                getPackages();
+                getDelivery();
             }}> GET</button>
             <button onClick={()=>{
                 navigate("taskdetails",{state: {email: email}});
@@ -49,32 +56,12 @@ export const CourierLandingPage = () =>{
             <br></br>
             <textarea readonly="true"  id="textarea" value={textAreaVal} style={{
                 minHeight: 400,
-                minWidth: 300,
+                minWidth: 400,
                 resize: "none"
             }}>
             </textarea>
             <br></br>
-            <input onChange={
-                (e) =>{
-                    setPackageId(e.target.value);
-                }
-            } placeholder="Enter the package id for choosing a package"></input>
-            <br></br>
-            <input onChange={
-                (e) =>{
-                    setArrivalDate(e.target.value);
-                }
-            } placeholder="Enter the arrival date"></input>
-            <br></br>
-            <input onChange={
-                (e) =>{
-                    setDepartureDate(e.target.value);
-                }
-            }   placeholder="Enter the departure date"></input>
-            <br></br>
-            <button onClick={() =>{
-                createDelivery();
-            }}>Assign</button>
+
             <br></br>
             <button onClick={()=>{
                 navigate(-1);
