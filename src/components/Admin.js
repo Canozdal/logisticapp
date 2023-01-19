@@ -19,7 +19,11 @@ export const Admin = () =>{
             <br></br>
             <button>Generate Report</button>
             <br></br>
-            <button>Logout</button>
+            <button onClick={
+                () =>{
+                    navigate(-1);
+                }
+            }>Logout</button>
         </div>
 
     );

@@ -12,7 +12,7 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const registerFunc = ( ) => {
-        Axios.post('http://localhost:3005/register',{name: name,password: password, email: email,phone: phone})
+        Axios.post('http://localhost:3005/register',{name: name,password: password, email: email,phone: phone, usertype: usertype})
         .then(() =>{
             console.log("Success");
         })

@@ -9,12 +9,15 @@ export const Login = () => {
     const [password,setPassword] = useState();
     var userPrompt = "Test"
     var userMail = "Test"
+    var userType = ""
     const loginFunc = () =>{
         Axios.post('http://localhost:3005/login',{email: email,password: password}).then((response) =>{
             if(response.data[0]["email"]){
                 userPrompt = response.data[0]["name"]
                 userMail = response.data[0]["email"]
+                userType = response.data[0]["usertype"]
                 console.log("Welcome " + response.data[0]["name"])
+                console.log(userType);
 
             }else{
 
@@ -41,7 +44,17 @@ export const Login = () => {
                     if(userPrompt == "Test"){
                         return null;
                     }
-                    navigate("landingpage",{state: {name: userPrompt,email: userMail}});
+                    if(userType == "Customer"){
+                        navigate("landingpage",{state: {name: userPrompt,email: userMail}});
+                    }else if(userType == "Employee"){
+                        navigate("employeelandingpage",{state: {name: userPrompt,email: userMail}});
+                    }else if(userType == "Courier"){
+                        navigate("courierlandingpage",{state: {name: userPrompt,email: userMail}});
+                    }else if(userType == "Admin"){
+                        navigate("admin",{state: {name: userPrompt,email: userMail}});
+                    }else{
+                        console.log("Invalid user type.")
+                    }
 
                     }}>Login</button></p>
                 <p>Dont have an account?<Link to="register">register</Link> </p>
