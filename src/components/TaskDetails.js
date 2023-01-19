@@ -1,12 +1,36 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import  Axios  from "axios";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const TaskDetails = () =>{
     const navigate = useNavigate();
+    const location = useLocation();
+    const [arrivalDate,setArrivalDate] = useState();
+    const [packageId,setPackageId] = useState();
+    const [status,setStatus] = useState();
+    var email = location.state["email"]
+    
+    const searchDelivery = () =>{
+        Axios.post("http://localhost:3005/searchDelivery", {email: email,packageId:packageId}).then(
+            (response) =>{
+                if(response.data){
+                    setArrivalDate(response.data[0]["arrivalDate"]);
+                    setStatus(response.data[0]["status"]);
+                }
+            }
+        )
+    }
+
     return(
         <div>Task Details
-            <p>Package ID: <input></input><button>Search</button></p>
-            <p>Date of Arrival</p>
+            <p>Package ID: <input onChange={(e) =>{
+                setPackageId(e.target.value);
+            }}></input>
+            <button onClick={() =>{
+                searchDelivery();
+            }}>Search</button></p>
+            <p>Date of Arrival {arrivalDate}</p>
+            <p>Status: {status}</p>
             <button>Package Sent</button>
             <button onClick={()=>{navigate(-1);}}>Back</button>
         </div>
